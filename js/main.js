@@ -121,8 +121,16 @@ const VS_CONFIG = {
     const obs = new IntersectionObserver((entradas) => {
       entradas.forEach((en) => {
         if (en.isIntersecting) {
-          en.target.classList.add('visible');
-          obs.unobserve(en.target);
+          const el = en.target;
+          el.classList.add('visible');
+          obs.unobserve(el);
+          // Al terminar de aparecer, quita la animación para que el efecto
+          // al pasar el ratón responda rápido
+          el.addEventListener('transitionend', function fin(ev) {
+            if (ev.target !== el || ev.propertyName !== 'transform') return;
+            el.classList.remove('revelar', 'visible');
+            el.removeEventListener('transitionend', fin);
+          });
         }
       });
     }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });

@@ -17,7 +17,7 @@
       respuesta: '¡Hola! ✦ Soy la <strong>Estrella V</strong>, la asistente de V Solutions. Pregúntame sobre nuestros servicios, precios, tiempos de entrega o cómo contactarnos.'
     },
     {
-      claves: ['servicio', 'que hacen', 'ofrecen', 'a que se dedican', 'pagina web', 'sitio web', 'paginas'],
+      claves: ['servicio', 'que hacen', 'ofrecen', 'a que se dedican', 'pagina web', 'sitio web', 'paginas', 'identidad', 'logo', 'branding', 'diseno', 'ui/ux', 'movil', 'app', 'consultoria'],
       respuesta: 'Creamos <strong>páginas web</strong>, <strong>tiendas en línea</strong>, diseño <strong>UI/UX</strong>, identidad digital, experiencias móviles y consultoría tecnológica. Mira los detalles en <a href="#servicios">Servicios</a>.'
     },
     {
@@ -58,8 +58,8 @@
       respuesta: 'Te orientamos para elegir dominio y hosting, y podemos acompañarte después del lanzamiento con mantenimiento y actualizaciones. Pregúntanos por esto al pedir tu cotización.'
     },
     {
-      claves: ['tecnologia', 'lenguaje', 'html', 'react', 'wordpress', 'framework', 'programan', 'con que'],
-      respuesta: 'Usamos tecnologías web modernas (HTML, CSS, JavaScript y frameworks actuales) y elegimos la herramienta adecuada para cada proyecto.'
+      claves: ['tecnologia', 'lenguaje', 'html', 'css', 'javascript', 'python', ' git ', 'github', 'svg', 'react', 'wordpress', 'framework', 'programan', 'con que'],
+      respuesta: 'Esta página la construimos con <strong>HTML5, CSS3 y JavaScript</strong>, gráficos <strong>SVG</strong>, y trabajamos en equipo con <strong>Git y GitHub</strong>. Para cada proyecto elegimos la herramienta adecuada. Míralas en <a href="#tecnologias">Tecnologías</a>.'
     },
     {
       claves: ['login', 'sesion', 'cuenta', 'registr', 'entrar', 'acceso', 'iniciar'],

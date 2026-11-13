@@ -798,6 +798,59 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 .paso h3 { font-size: 1.15rem; font-weight: 600; margin-bottom: 8px; }
 .paso p { font-size: 0.95rem; color: var(--texto-suave); }
 
+/* Tecnologías: logos de lenguajes en estilo neón */
+.tecnologias__grupo {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 22px;
+  font-size: 1.08rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--texto-suave);
+}
+.tecnologias__grupo span { color: var(--morado-claro); font-weight: 500; }
+.tecnologias__grupo::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(196, 167, 255, 0.55), transparent);
+}
+.tecnologias + .tecnologias__grupo { margin-top: 56px; }
+.tecnologias { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+.tecnologia {
+  padding: 34px 24px 28px;
+  text-align: center;
+  transition: transform 0.45s var(--curva), border-color 0.45s;
+}
+.tecnologia:hover { transform: translateY(-6px); border-color: rgba(255, 255, 255, 0.34); }
+.tecnologia__logo {
+  position: relative;
+  width: 84px;
+  height: 84px;
+  margin: 0 auto 22px;
+  display: grid;
+  place-items: center;
+  animation: flotar-logo 6s ease-in-out infinite;
+  animation-delay: calc(var(--d, 0) * -1.4s);
+}
+.tecnologia__logo::before { /* halo suave detrás del logo */
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.09), transparent 68%);
+}
+.tecnologia__logo .icono { position: relative; width: 66px; height: 66px; }
+.tecnologia:hover .icono {
+  transform: scale(1.1) rotate(-4deg);
+  filter: drop-shadow(0 0 14px var(--brillo)) drop-shadow(0 0 3px var(--brillo));
+}
+.tecnologia h4 { font-size: 1.22rem; font-weight: 700; letter-spacing: -0.015em; }
+.tecnologia .etiqueta { margin: 10px 0 12px; }
+.tecnologia p { font-size: 0.94rem; color: var(--texto-suave); }
+@keyframes flotar-logo { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+
 /* Equipo */
 .equipo { display: flex; flex-wrap: wrap; justify-content: center; gap: 24px; }
 .perfil { flex: 0 1 340px; perspective: 900px; }
@@ -1222,7 +1275,7 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 @keyframes titilar { 0%, 100% { opacity: 0.75; transform: scale(0.9); } 50% { opacity: 1; transform: scale(1.15); } }
 
 /* ---------- 11. Responsive ---------- */
-@media (max-width: 1060px) {
+@media (max-width: 1220px) {
   .nav__enlaces a:not(.btn) { padding: 8px 10px; }
 }
 
@@ -1234,7 +1287,7 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
   .hero__acciones, .hero__datos { justify-content: center; }
   .hero__bajar { display: none; }
   .mascota { width: min(280px, 70%); }
-  .servicios { grid-template-columns: repeat(2, 1fr); }
+  .servicios, .tecnologias { grid-template-columns: repeat(2, 1fr); }
   .publico, .contacto { grid-template-columns: 1fr; }
   .proceso { grid-template-columns: repeat(2, 1fr); }
   .proceso::before { display: none; }
@@ -1242,7 +1295,7 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
   .pie__marca { grid-column: 1 / -1; }
 }
 
-@media (max-width: 860px) {
+@media (max-width: 1100px) {
   .nav { gap: 10px; }
   .nav__login { display: none; }
   .nav__hamburguesa { display: block; margin-left: auto; }
@@ -1272,8 +1325,14 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 
 @media (max-width: 640px) {
   .seccion { padding: 84px 0; }
-  .servicios, .proceso { grid-template-columns: 1fr; }
+  .servicios, .proceso, .tecnologias { grid-template-columns: 1fr; }
   .paso__tarjeta { height: auto; }
+  .tecnologias + .tecnologias__grupo { margin-top: 40px; }
+  /* En celular: logo a la izquierda y texto a la derecha */
+  .tecnologia { display: flex; align-items: flex-start; gap: 18px; padding: 22px 20px; text-align: left; }
+  .tecnologia__logo { width: 64px; height: 64px; margin: 0; flex-shrink: 0; }
+  .tecnologia__logo .icono { width: 54px; height: 54px; }
+  .tecnologia .etiqueta { margin: 6px 0 8px; }
   .publico__tarjeta, .formulario { padding: 32px 22px; }
   .campo--doble { grid-template-columns: 1fr; gap: 0; margin-bottom: 0; }
   .campo--doble .campo { margin-bottom: 16px; }

@@ -22,7 +22,7 @@ No necesita instalar nada: es HTML, CSS y JavaScript puro.
 ## 📁 Estructura del proyecto
 
 ```
-├── index.html          → Landing page (inicio, servicios, soluciones, proceso, equipo, contacto)
+├── index.html          → Landing page (inicio, servicios, soluciones, proceso, tecnologías, equipo, contacto)
 ├── login.html          → Página de inicio de sesión / registro
 ├── css/
 │   ├── estilos.css     → Estilos de todo el sitio (colores en :root, al inicio del archivo)
@@ -49,6 +49,7 @@ No necesita instalar nada: es HTML, CSS y JavaScript puro.
 | Mi foto de perfil                   | súbela a `assets/img/equipo/` y pon la ruta en `js/equipo.js` |
 | Respuestas del chatbot              | `js/chatbot.js` → lista `RESPUESTAS`       |
 | Textos de las secciones             | `index.html`                               |
+| Tarjetas de tecnologías (logos)     | `index.html` → sección `#tecnologias`      |
 | Colores, tamaños, fuentes           | `css/estilos.css` → bloque `:root`         |
 | Correo que recibe el formulario     | `js/main.js` → `VS_CONFIG.correoContacto`  |
 
