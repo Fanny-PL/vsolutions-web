@@ -1,0 +1,14 @@
+# Sistema operativo
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editores y herramientas locales
+.idea/
+.claude/
+*.swp
+
+# Dependencias y registros (por si en el futuro usan npm)
+node_modules/
+*.log
+.env

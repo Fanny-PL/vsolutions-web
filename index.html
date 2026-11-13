@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>V Solutions · El universo tecnológico</title>
+  <meta name="description" content="V Solutions: equipo de desarrollo web que crea soluciones tecnológicas para micronegocios y grandes empresas.">
+  <meta name="theme-color" content="#05030a">
+  <link rel="icon" type="image/png" href="assets/img/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/estilos.css">
+  <script>document.documentElement.classList.add('js');</script>
+</head>
+<body>
+
+  <!-- =====================================================
+       FONDO "EL UNIVERSO": manchas moradas + grano + estrellas
+       (se anima con css/estilos.css y js/fondo.js)
+       ===================================================== -->
+  <div class="universo" aria-hidden="true">
+    <div class="mancha mancha--1"></div>
+    <div class="mancha mancha--2"></div>
+    <div class="mancha mancha--3"></div>
+    <div class="mancha mancha--4"></div>
+    <div class="mancha mancha--cursor"></div>
+    <div class="grano"></div>
+    <canvas id="estrellas"></canvas>
+  </div>
+
+  <!-- Degradados de los íconos neón (se reutilizan en toda la página) -->
+  <svg class="svg-defs" aria-hidden="true" focusable="false">
+    <defs>
+      <linearGradient id="g-azul-t" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#b8d6ff"/><stop offset="1" stop-color="#4b82f0"/></linearGradient>
+      <linearGradient id="g-azul-r" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0b1426"/><stop offset="1" stop-color="#2d5cc0"/></linearGradient>
+      <linearGradient id="g-rosa-t" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffc6f0"/><stop offset="1" stop-color="#e070cf"/></linearGradient>
+      <linearGradient id="g-rosa-r" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#5a2453"/><stop offset=".55" stop-color="#1d0c1c"/><stop offset="1" stop-color="#120812"/></linearGradient>
+      <linearGradient id="g-morado-t" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e4c6ff"/><stop offset="1" stop-color="#9d4fff"/></linearGradient>
+      <linearGradient id="g-morado-r" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#bf93ff"/><stop offset="1" stop-color="#5a22b8"/></linearGradient>
+      <linearGradient id="g-morado-r2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2e1060"/><stop offset="1" stop-color="#6c2fd0"/></linearGradient>
+      <linearGradient id="g-turquesa-t" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#a8f4ea"/><stop offset="1" stop-color="#2bb5a6"/></linearGradient>
+      <linearGradient id="g-turquesa-r" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0b1c1c"/><stop offset="1" stop-color="#1f7a72"/></linearGradient>
+      <linearGradient id="g-amarillo-t" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f8ffa8"/><stop offset="1" stop-color="#c6d42a"/></linearGradient>
+      <linearGradient id="g-amarillo-r" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1c1e08"/><stop offset="1" stop-color="#5c6312"/></linearGradient>
+      <linearGradient id="g-durazno-t" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffdac6"/><stop offset="1" stop-color="#f08c66"/></linearGradient>
+      <linearGradient id="g-durazno-r" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1e110b"/><stop offset="1" stop-color="#76412c"/></linearGradient>
+      <linearGradient id="g-lavanda-t" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f1e8ff"/><stop offset="1" stop-color="#a78bfa"/></linearGradient>
+      <linearGradient id="g-lavanda-r" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#150c28"/><stop offset="1" stop-color="#4d2f9c"/></linearGradient>
+      <linearGradient id="g-indigo-t" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#d0cfff"/><stop offset="1" stop-color="#6366f1"/></linearGradient>
+      <linearGradient id="g-indigo-r" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0d0d2a"/><stop offset="1" stop-color="#34349c"/></linearGradient>
+    </defs>
+  </svg>
+
+  <!-- =====================================================
+       NAVEGACIÓN (logo arriba a la izquierda + botón de login)
+       ===================================================== -->
+  <header class="nav vidrio" id="nav">
+    <a href="#inicio" class="marca" aria-label="V Solutions, ir al inicio">
+      <img src="assets/img/logo-v.png" alt="" class="marca__v" width="53" height="46">
+      <span class="marca__texto">SOLUTIONS<small></small></span>
+    </a>
+
+    <nav class="nav__enlaces" id="menu" aria-label="Principal">
+      <a href="#inicio" class="activo">Inicio</a>
+      <a href="#servicios">Servicios</a>
+      <a href="#soluciones">Soluciones</a>
+      <a href="#proceso">Proceso</a>
+      <a href="#equipo">Equipo</a>
+      <a href="#contacto">Contacto</a>
+      <a href="login.html" class="btn btn--sm nav__login-movil">Iniciar sesión</a>
+    </nav>
+
+    <a href="login.html" class="btn btn--sm nav__login">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      Iniciar sesión
+    </a>
+
+    <button class="nav__hamburguesa" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="menu">
+      <span></span><span></span>
+    </button>
+  </header>
+
+  <main>
+    <!-- =====================================================
+         HERO — "El universo tecnológico" + mascota 3D
+         ===================================================== -->
+    <div class="hero-envoltura">
+      <section class="hero contenedor" id="inicio">
+        <div class="hero__texto">
+          <span class="chip vidrio revelar">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#fff" d="M12 0C12.9 7.5 16.5 11.1 24 12 16.5 12.9 12.9 16.5 12 24 11.1 16.5 7.5 12.9 0 12 7.5 11.1 11.1 7.5 12 0Z"/></svg>
+            Desarrollo web · Soluciones tecnológicas
+          </span>
+
+          <h1 class="hero__titulo revelar" style="--d:1">El universo <span class="texto-metal">tecnológico</span></h1>
+
+          <p class="hero__descripcion revelar" style="--d:2">
+            Somos <strong>V Solutions</strong>, un equipo de cinco integrantes que crea páginas web y
+            soluciones digitales a la medida: desde micronegocios que dan su primer paso en internet
+            hasta empresas grandes que necesitan crecer.
+          </p>
+
+          <div class="hero__acciones revelar" style="--d:3">
+            <a href="#contacto" class="btn btn--primario">
+              Cotiza tu proyecto
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </a>
+            <a href="#equipo" class="btn">Conoce al equipo</a>
+          </div>
+
+          <ul class="hero__datos revelar" style="--d:4">
+            <li><strong>5</strong><span>integrantes</span></li>
+            <li><strong>Micro → Grande</strong><span>negocios de todo tamaño</span></li>
+            <li><strong>100%</strong><span>a la medida</span></li>
+          </ul>
+        </div>
+
+        <div class="hero__visual revelar" style="--d:2">
+          <div class="orbita"></div>
+          <div class="orbita orbita--2"></div>
+          <!-- Mascota: gatito 3D (js/mascota.js). Haz clic para que salte. -->
+          <div class="mascota" data-src="assets/img/gato.png" data-capas="14" role="button" tabindex="0" aria-label="Gatito mascota de V Solutions, haz clic para saludar"></div>
+        </div>
+      </section>
+      <a href="#servicios" class="hero__bajar" aria-label="Bajar a servicios"><span></span>Explora</a>
+    </div>
+
+    <!-- =====================================================
+         SERVICIOS — íconos neón
+         ===================================================== -->
+    <section class="seccion" id="servicios">
+      <div class="contenedor">
+        <header class="seccion__cabecera revelar">
+          <span class="ceja">Servicios</span>
+          <h2 class="titulo">Todo lo que tu negocio necesita para <span class="texto-morado">brillar en línea</span></h2>
+          <p class="lead">Diseñamos y desarrollamos soluciones tecnológicas completas, pensadas para crecer contigo.</p>
+        </header>
+
+        <div class="servicios">
+          <article class="servicio vidrio vidrio--foco revelar" style="--d:0">
+            <svg class="icono" viewBox="0 0 64 64" style="--brillo:#4b82f0" aria-hidden="true">
+              <rect x="9" y="11" width="46" height="42" rx="12" fill="url(#g-azul-r)" stroke="url(#g-azul-t)" stroke-width="3"/>
+              <circle cx="20" cy="22" r="2.7" fill="#b8d6ff"/>
+              <circle cx="28.5" cy="22" r="2.7" fill="#b8d6ff"/>
+            </svg>
+            <h3>Páginas web</h3>
+            <p>Sitios modernos, rápidos y adaptables a cualquier pantalla, desde una landing page hasta un sitio completo.</p>
+          </article>
+
+          <article class="servicio vidrio vidrio--foco revelar" style="--d:1">
+            <svg class="icono" viewBox="0 0 64 64" style="--brillo:#e070cf" aria-hidden="true">
+              <path d="M12.5 30.5A21 21 0 0 0 33.5 53" fill="none" stroke="url(#g-rosa-t)" stroke-width="3" stroke-linecap="round"/>
+              <circle cx="37" cy="27" r="17" fill="url(#g-rosa-r)" stroke="url(#g-rosa-t)" stroke-width="3"/>
+            </svg>
+            <h3>Identidad digital</h3>
+            <p>Logotipos, paletas de color y un estilo visual coherente para que tu marca se reconozca en todos lados.</p>
+          </article>
+
+          <article class="servicio vidrio vidrio--foco revelar" style="--d:2">
+            <svg class="icono" viewBox="0 0 64 64" style="--brillo:#9d4fff" aria-hidden="true">
+              <circle cx="24" cy="24" r="15" fill="url(#g-morado-r)" stroke="url(#g-morado-t)" stroke-width="3"/>
+              <rect x="27" y="27" width="28" height="28" rx="8" fill="url(#g-morado-r2)" stroke="url(#g-morado-t)" stroke-width="3"/>
+            </svg>
+            <h3>Diseño UI/UX</h3>
+            <p>Interfaces claras e intuitivas, pensadas para que tus clientes encuentren lo que buscan sin esfuerzo.</p>
+          </article>
+
+          <article class="servicio vidrio vidrio--foco revelar" style="--d:0">
+            <svg class="icono" viewBox="0 0 64 64" style="--brillo:#2bb5a6" aria-hidden="true">
+              <path d="M24 25v-4a8 8 0 0 1 16 0v4" fill="none" stroke="url(#g-turquesa-t)" stroke-width="3" stroke-linecap="round"/>
+              <path d="M18.5 25h27c2.6 0 4.8 2 5.1 4.6l2.2 18.6c.5 4-2.6 7.3-6.6 7.3H17.8c-4 0-7.1-3.3-6.6-7.3l2.2-18.6c.3-2.6 2.5-4.6 5.1-4.6z" fill="url(#g-turquesa-r)" stroke="url(#g-turquesa-t)" stroke-width="3"/>
+              <path d="M28 34h8" stroke="#a8f4ea" stroke-width="3" stroke-linecap="round"/>
+              <path d="M47 59c-6.4-4.4-9.6-7.6-9.6-11.2a4.8 4.8 0 0 1 9.6-1.4 4.8 4.8 0 0 1 9.6 1.4c0 3.6-3.2 6.8-9.6 11.2z" fill="url(#g-turquesa-t)" stroke="#05030a" stroke-width="2.4" stroke-linejoin="round"/>
+            </svg>
+            <h3>Tiendas en línea</h3>
+            <p>Catálogos, carrito de compras y pagos en línea para que tu negocio venda las 24 horas.</p>
+          </article>
+
+          <article class="servicio vidrio vidrio--foco revelar" style="--d:1">
+            <svg class="icono" viewBox="0 0 64 64" style="--brillo:#c6d42a" aria-hidden="true">
+              <path d="M30 9C21.2 9 14 16 14 24.8c0 5.3 2.6 9.6 6.3 12.5 1.8 1.4 2.9 3.5 2.9 5.8V45h13.6v-1.9c0-2.3 1.1-4.4 2.9-5.8 3.7-2.9 6.3-7.2 6.3-12.5C46 16 38.8 9 30 9z" fill="url(#g-amarillo-r)" stroke="url(#g-amarillo-t)" stroke-width="3" stroke-linejoin="round"/>
+              <path d="M24 51h12M26.5 56.5h7" stroke="url(#g-amarillo-t)" stroke-width="3" stroke-linecap="round"/>
+              <path d="M48 3c.9 5 2.6 6.7 7.6 7.6-5 .9-6.7 2.6-7.6 7.6-.9-5-2.6-6.7-7.6-7.6 5-.9 6.7-2.6 7.6-7.6z" fill="#f8ffa8" stroke="#05030a" stroke-width="1.6" stroke-linejoin="round"/>
+            </svg>
+            <h3>Consultoría tecnológica</h3>
+            <p>Te ayudamos a elegir la mejor solución digital según tus objetivos, tu presupuesto y tu etapa.</p>
+          </article>
+
+          <article class="servicio vidrio vidrio--foco revelar" style="--d:2">
+            <svg class="icono" viewBox="0 0 64 64" style="--brillo:#f08c66" aria-hidden="true">
+              <rect x="17" y="6" width="30" height="52" rx="9" fill="url(#g-durazno-r)" stroke="url(#g-durazno-t)" stroke-width="3"/>
+              <path d="M27.5 12.5h9" stroke="#ffdac6" stroke-width="3" stroke-linecap="round"/>
+              <path d="M28 51.5h8" stroke="#f6a582" stroke-width="3" stroke-linecap="round"/>
+            </svg>
+            <h3>Experiencias móviles</h3>
+            <p>Diseños pensados primero para el celular, donde hoy te buscan la mayoría de tus clientes.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================================================
+         SOLUCIONES — micronegocios y negocios grandes
+         ===================================================== -->
+    <section class="seccion" id="soluciones">
+      <div class="contenedor">
+        <header class="seccion__cabecera revelar">
+          <span class="ceja">Soluciones</span>
+          <h2 class="titulo">Del micronegocio a la <span class="texto-metal">gran empresa</span></h2>
+          <p class="lead">Adaptamos cada proyecto al tamaño, al presupuesto y a los objetivos de tu negocio.</p>
+        </header>
+
+        <div class="publico">
+          <article class="publico__tarjeta vidrio vidrio--foco revelar">
+            <div class="publico__cabecera">
+              <svg class="icono" viewBox="0 0 64 64" style="--brillo:#a78bfa" aria-hidden="true">
+                <path d="M14 30v20a5 5 0 0 0 5 5h26a5 5 0 0 0 5-5V30" fill="url(#g-lavanda-r)" stroke="url(#g-lavanda-t)" stroke-width="3"/>
+                <path d="M9 24 14.5 10h35L55 24c0 3.3-2.7 6-6 6s-5.5-2.7-5.5-6c0 3.3-2.5 6-5.75 6S32 27.3 32 24c0 3.3-2.5 6-5.75 6S20.5 27.3 20.5 24c0 3.3-2.2 6-5.5 6S9 27.3 9 24z" fill="url(#g-lavanda-r)" stroke="url(#g-lavanda-t)" stroke-width="3" stroke-linejoin="round"/>
+                <rect x="27" y="40" width="10" height="15" rx="2.5" fill="none" stroke="#e4d6ff" stroke-width="2.6"/>
+              </svg>
+              <div>
+                <span class="etiqueta">Para empezar</span>
+                <h3>Micronegocios</h3>
+              </div>
+            </div>
+            <p>Lleva tu negocio a internet con una presencia profesional, sencilla de administrar y accesible.</p>
+            <ul class="lista-estrellas">
+              <li>Tu negocio visible en internet desde el primer día</li>
+              <li>Landing page con botón de WhatsApp y ubicación en el mapa</li>
+              <li>Catálogo de productos fácil de actualizar</li>
+              <li>Diseño que se ve profesional en el celular</li>
+            </ul>
+          </article>
+
+          <article class="publico__tarjeta vidrio vidrio--foco revelar" style="--d:1">
+            <div class="publico__cabecera">
+              <svg class="icono" viewBox="0 0 64 64" style="--brillo:#6366f1" aria-hidden="true">
+                <rect x="11" y="8" width="28" height="48" rx="6" fill="url(#g-indigo-r)" stroke="url(#g-indigo-t)" stroke-width="3"/>
+                <path d="M39 24h9a5 5 0 0 1 5 5v22a5 5 0 0 1-5 5h-9" fill="url(#g-indigo-r)" stroke="url(#g-indigo-t)" stroke-width="3"/>
+                <path d="M19 17h4M27 17h4M19 25h4M27 25h4M19 33h4M27 33h4" stroke="#d0cfff" stroke-width="3" stroke-linecap="round"/>
+                <path d="M22 56v-9h6v9" fill="none" stroke="#d0cfff" stroke-width="2.6" stroke-linejoin="round"/>
+              </svg>
+              <div>
+                <span class="etiqueta">Para crecer</span>
+                <h3>Negocios grandes</h3>
+              </div>
+            </div>
+            <p>Soluciones robustas y escalables que se integran a la forma en la que ya trabaja tu empresa.</p>
+            <ul class="lista-estrellas">
+              <li>Sistemas y plataformas web a la medida</li>
+              <li>Integración con las herramientas que ya usas</li>
+              <li>Paneles de control y reportes para tomar decisiones</li>
+              <li>Arquitectura lista para crecer con tu operación</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================================================
+         PROCESO — constelación de 4 pasos
+         ===================================================== -->
+    <section class="seccion" id="proceso">
+      <div class="contenedor">
+        <header class="seccion__cabecera revelar">
+          <span class="ceja">Proceso</span>
+          <h2 class="titulo">Así trazamos la ruta de <span class="texto-morado">tu proyecto</span></h2>
+          <p class="lead">Un camino claro, paso a paso, para que siempre sepas en qué punto del universo vamos.</p>
+        </header>
+
+        <ol class="proceso">
+          <li class="paso revelar" style="--d:0">
+            <div class="paso__nodo">01</div>
+            <div class="paso__tarjeta vidrio">
+              <h3>Escuchamos</h3>
+              <p>Conocemos tu negocio, a tus clientes y lo que necesitas lograr.</p>
+            </div>
+          </li>
+          <li class="paso revelar" style="--d:1">
+            <div class="paso__nodo">02</div>
+            <div class="paso__tarjeta vidrio">
+              <h3>Diseñamos</h3>
+              <p>Creamos la propuesta visual y la experiencia antes de escribir código.</p>
+            </div>
+          </li>
+          <li class="paso revelar" style="--d:2">
+            <div class="paso__nodo">03</div>
+            <div class="paso__tarjeta vidrio">
+              <h3>Desarrollamos</h3>
+              <p>Construimos tu solución con tecnología moderna, rápida y segura.</p>
+            </div>
+          </li>
+          <li class="paso revelar" style="--d:3">
+            <div class="paso__nodo">04</div>
+            <div class="paso__tarjeta vidrio">
+              <h3>Lanzamos</h3>
+              <p>Publicamos tu proyecto y te acompañamos para que siga creciendo.</p>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- =====================================================
+         EQUIPO — los perfiles se editan en js/equipo.js
+         ===================================================== -->
+    <section class="seccion" id="equipo">
+      <div class="contenedor">
+        <header class="seccion__cabecera revelar">
+          <span class="ceja">Equipo</span>
+          <h2 class="titulo">Las cinco estrellas detrás de <span class="texto-metal">V Solutions</span></h2>
+          <p class="lead">Cada integrante aporta su propia luz: estrategia, diseño, código y soporte.</p>
+        </header>
+
+        <div class="equipo" id="equipo-lista">
+          <noscript><p class="lead">Activa JavaScript para ver los perfiles del equipo.</p></noscript>
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================================================
+         CONTACTO
+         ===================================================== -->
+    <section class="seccion" id="contacto">
+      <div class="contenedor contacto">
+        <div class="revelar">
+          <header class="seccion__cabecera seccion__cabecera--izq">
+            <span class="ceja">Contacto</span>
+            <h2 class="titulo">Hablemos de tu <span class="texto-morado">próximo proyecto</span></h2>
+            <p class="lead">Cuéntanos sobre tu negocio y juntos encontramos la solución tecnológica ideal.</p>
+          </header>
+
+          <ul class="contacto__puntos">
+            <li>
+              <svg class="icono" viewBox="0 0 64 64" style="--brillo:#a78bfa" aria-hidden="true">
+                <rect x="8" y="14" width="48" height="36" rx="10" fill="url(#g-lavanda-r)" stroke="url(#g-lavanda-t)" stroke-width="3"/>
+                <path d="M16 24l16 11 16-11" fill="none" stroke="#f1e8ff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              <div><strong>Cotización a la medida</strong><span>Te proponemos solo lo que tu negocio necesita.</span></div>
+            </li>
+            <li>
+              <svg class="icono" viewBox="0 0 64 64" style="--brillo:#4b82f0" aria-hidden="true">
+                <path d="M10 18a8 8 0 0 1 8-8h28a8 8 0 0 1 8 8v20a8 8 0 0 1-8 8H28l-10 9v-9a8 8 0 0 1-8-8z" fill="url(#g-azul-r)" stroke="url(#g-azul-t)" stroke-width="3" stroke-linejoin="round"/>
+                <circle cx="22.5" cy="28" r="2.7" fill="#b8d6ff"/><circle cx="32" cy="28" r="2.7" fill="#b8d6ff"/><circle cx="41.5" cy="28" r="2.7" fill="#b8d6ff"/>
+              </svg>
+              <div><strong>Atención personalizada</strong><span>Hablas directamente con el equipo que construye tu proyecto.</span></div>
+            </li>
+            <li>
+              <svg class="icono" viewBox="0 0 64 64" style="--brillo:#e070cf" aria-hidden="true">
+                <path d="M32 4c1.8 13.5 8.5 20.2 22 22-13.5 1.8-20.2 8.5-22 22-1.8-13.5-8.5-20.2-22-22C23.5 24.2 30.2 17.5 32 4z" fill="url(#g-rosa-r)" stroke="url(#g-rosa-t)" stroke-width="3" stroke-linejoin="round"/>
+                <path d="M50 44c.8 4.5 2.5 6.2 7 7-4.5.8-6.2 2.5-7 7-.8-4.5-2.5-6.2-7-7 4.5-.8 6.2-2.5 7-7z" fill="#ffc6f0"/>
+              </svg>
+              <div><strong>Acompañamiento</strong><span>Seguimos contigo después del lanzamiento.</span></div>
+            </li>
+          </ul>
+        </div>
+
+        <form class="formulario vidrio revelar" id="form-contacto" style="--d:1" novalidate>
+          <h3>Escríbenos</h3>
+          <p class="formulario__sub">Te respondemos lo antes posible ✦</p>
+
+          <div class="campo--doble">
+            <div class="campo">
+              <label class="sr-only" for="c-nombre">Nombre</label>
+              <input id="c-nombre" name="nombre" type="text" placeholder="Nombre" autocomplete="name" required>
+              <svg class="campo__icono" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            </div>
+            <div class="campo">
+              <label class="sr-only" for="c-correo">Correo</label>
+              <input id="c-correo" name="correo" type="email" placeholder="Correo" autocomplete="email" required>
+              <svg class="campo__icono" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            </div>
+          </div>
+
+          <div class="campo">
+            <label class="sr-only" for="c-tipo">Tipo de negocio</label>
+            <select id="c-tipo" name="tipo" required>
+              <option value="" disabled selected>Tipo de negocio</option>
+              <option>Micronegocio / emprendimiento</option>
+              <option>Pequeña o mediana empresa</option>
+              <option>Empresa grande</option>
+              <option>Otro</option>
+            </select>
+            <svg class="campo__icono" viewBox="0 0 24 24" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+          </div>
+
+          <div class="campo">
+            <label class="sr-only" for="c-mensaje">Mensaje</label>
+            <textarea id="c-mensaje" name="mensaje" placeholder="Cuéntanos sobre tu proyecto" required></textarea>
+          </div>
+
+          <button type="submit" class="btn btn--bloque">Enviar mensaje</button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <!-- =====================================================
+       PIE DE PÁGINA
+       ===================================================== -->
+  <footer class="pie">
+    <div class="contenedor">
+      <div class="divisor" aria-hidden="true"></div>
+      <div class="pie__grid">
+        <div class="pie__marca">
+          <img src="assets/img/logo-completo.png" alt="V Solutions" class="pie__logo" width="120" height="124">
+          <p>El universo tecnológico. Soluciones web para micronegocios y grandes empresas.</p>
+        </div>
+        <div>
+          <h4>Explora</h4>
+          <nav class="pie__enlaces" aria-label="Pie de página">
+            <a href="#servicios">Servicios</a>
+            <a href="#soluciones">Soluciones</a>
+            <a href="#proceso">Proceso</a>
+          </nav>
+        </div>
+        <div>
+          <h4>V Solutions</h4>
+          <nav class="pie__enlaces" aria-label="Accesos">
+            <a href="#equipo">Equipo</a>
+            <a href="#contacto">Contacto</a>
+            <a href="login.html">Iniciar sesión</a>
+          </nav>
+        </div>
+      </div>
+      <div class="pie__copy">
+        <span>© <span data-anio>2026</span> V Solutions. Todos los derechos reservados.</span>
+        <span>Hecho con ✦ por nuestro equipo</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/equipo.js" defer></script>
+  <script src="js/fondo.js" defer></script>
+  <script src="js/mascota.js" defer></script>
+  <script src="js/main.js" defer></script>
+  <script src="js/chatbot.js" defer></script>
+</body>
+</html>
