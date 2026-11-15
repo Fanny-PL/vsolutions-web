@@ -9,7 +9,16 @@ estrella fugaz plateada.
 
 ---
 
-## 🚀 Cómo ver la página
+## 🌐 Página en vivo
+
+**https://fanny-pl.github.io/vsolutions-web/**
+
+Se publica sola con GitHub Pages: cada cambio que alguien sube a `main` aparece ahí
+en 1 o 2 minutos (si no lo ves, recarga con `Ctrl + F5`).
+
+---
+
+## 🚀 Cómo ver la página en tu computadora
 
 No necesita instalar nada: es HTML, CSS y JavaScript puro.
 
@@ -55,51 +64,48 @@ No necesita instalar nada: es HTML, CSS y JavaScript puro.
 
 ---
 
-## 🤝 Cómo trabajar en equipo (cada quien desde su laptop)
+## 🤝 Cómo trabajar en equipo (cada quien desde su laptop y su Claude)
 
-### 1. Una sola vez: dar acceso al equipo
-La persona dueña del repositorio entra a GitHub → **Settings → Collaborators → Add people**
-y agrega el usuario de GitHub de cada integrante. Cada quien acepta la invitación desde su correo.
+Todos trabajamos directo en la rama `main`: lo que subes se ve en la página en vivo
+en un par de minutos. No hacen falta ramas ni *pull requests*.
 
-### 2. Una sola vez: descargar el proyecto
-Cada integrante instala [Git](https://git-scm.com/downloads) y ejecuta:
+### 1. Una sola vez: preparar tu computadora
+
+1. Acepta la invitación al repositorio que te llega por correo
+   (la dueña, **Fanny-PL**, te agrega en *Settings → Collaborators*).
+2. Instala [Git](https://git-scm.com/downloads) y la app de **Claude** para escritorio.
+3. En Claude, pestaña **Code**, elige una carpeta (por ejemplo *Documentos*) y escribe:
+   > *"Clona el repositorio https://github.com/Fanny-PL/vsolutions-web y ábrelo como proyecto"*
+4. Cuando Claude te pida iniciar sesión en GitHub, pega el código que te da en
+   [github.com/login/device](https://github.com/login/device).
+
+### 2. Cada vez que vayas a trabajar (con Claude)
+
+1. *"Trae lo último de GitHub"*: así empiezas con los cambios de los demás.
+2. Pide tu cambio, por ejemplo: *"Pon mi nombre, mi rol y mi foto en el equipo"*.
+3. *"Guarda y sube mis cambios a GitHub"*.
+
+Claude ya conoce las reglas del equipo porque las lee del archivo [`CLAUDE.md`](CLAUDE.md).
+
+### Sin Claude (solo con Git)
 
 ```bash
-git clone https://github.com/Fanny-PL/vsolutions-web.git
-cd vsolutions-web
-```
-
-### 3. Cada vez que vayas a trabajar
-
-```bash
-git checkout main
-git pull                                  # trae los cambios más recientes del equipo
-git checkout -b tu-nombre/lo-que-haces    # crea tu propia rama, ej: ana/perfil
-```
-
-Haz tus cambios, revisa que se vean bien y guarda:
-
-```bash
+git pull                                   # 1. trae lo último del equipo
+# 2. haz tus cambios y revisa que se vean bien
 git add .
-git commit -m "Agrego mi perfil al equipo"
-git push -u origin tu-nombre/lo-que-haces
+git commit -m "Agrego mi perfil al equipo" # 3. describe qué cambiaste
+git push                                   # 4. súbelo: en 1-2 min se ve en la página
 ```
 
-### 4. Unir tus cambios
-En GitHub aparecerá el botón **Compare & pull request**. Crea el *Pull Request*,
-pide a otro integrante que lo revise y, cuando esté aprobado, presiona **Merge**.
+Si `git push` te dice *rejected*, alguien subió algo antes que tú: ejecuta `git pull`
+y después `git push` otra vez.
 
-> 💡 **Reglas de oro:** nunca trabajes directo en `main`, haz `git pull` antes de empezar
-> y usa mensajes de commit que expliquen qué cambiaste.
-
----
-
-## 🌐 Publicar la página gratis (GitHub Pages)
-
-1. El repositorio debe ser **público** (Settings → General → Danger Zone → Change visibility).
-2. Ve a **Settings → Pages**.
-3. En *Source* elige **Deploy from a branch**, rama `main`, carpeta `/ (root)` y guarda.
-4. En un par de minutos la página estará en `https://fanny-pl.github.io/vsolutions-web/`.
+> 💡 **Reglas de oro**
+> - Trae lo último **antes** de empezar y sube tus cambios **en cuanto termines**.
+> - Avisen en su grupo qué van a tocar para no editar el mismo archivo al mismo tiempo.
+> - Cada quien edita solo su bloque en `js/equipo.js`.
+> - Nunca subas contraseñas ni llaves: el repositorio es público.
+> - La rama `main` está protegida: nadie puede borrarla ni sobrescribir el historial.
 
 ---
 
