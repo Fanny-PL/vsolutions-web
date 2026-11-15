@@ -34,7 +34,7 @@ window.VS_EQUIPO = [
   },
   {
     nombre: "Estefania Pedraza Lopez",
-    rol: "Desarrolladora Frontend",
+    rol: "Desarrollo Frontend",
     bio: "Da forma a todo lo que ves: interfaces de vidrio, animaciones y detalles que hacen brillar cada página.",
     habilidades: ["HTML", "CSS", "JavaScript"],
     foto: "assets/img/equipo/estefania-pedraza.jpg",
