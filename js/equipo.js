@@ -33,11 +33,11 @@ window.VS_EQUIPO = [
     instagram: ""
   },
   {
-    nombre: "Integrante 3",
-    rol: "Desarrollo Backend",
-    bio: "Construye la parte que no se ve: servidores, bases de datos y la lógica que hace funcionar todo.",
-    habilidades: ["Node.js", "Bases de datos", "APIs"],
-    foto: "",
+    nombre: "Estefania Pedraza Lopez",
+    rol: "Desarrolladora Frontend",
+    bio: "Da forma a todo lo que ves: interfaces de vidrio, animaciones y detalles que hacen brillar cada página.",
+    habilidades: ["HTML", "CSS", "JavaScript"],
+    foto: "assets/img/equipo/estefania-pedraza.jpg",
     github: "",
     linkedin: "",
     instagram: ""
